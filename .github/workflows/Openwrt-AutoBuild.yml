@@ -73,6 +73,7 @@ jobs:
         
         # 4. 执行自定义脚本
         [ -f "../devices/common/$DIY_SH" ] && chmod +x ../devices/common/$DIY_SH && /bin/bash ../devices/common/$DIY_SH
+        [ -f "../devices/mediatek_filogic/diy-360t7.sh" ] && chmod +x ../devices/mediatek_filogic/diy-360t7.sh && /bin/bash ../devices/mediatek_filogic/diy-360t7.sh
 
     - name: Download Package Sources
       run: |
