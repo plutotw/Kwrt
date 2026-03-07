@@ -61,10 +61,16 @@ jobs:
         cp -f devices/common/$CONFIG_FILE openwrt/.config
         # 2. 如果有设备特定配置，则追加
         [ -f "devices/mediatek_filogic/$CONFIG_FILE" ] && cat devices/mediatek_filogic/$CONFIG_FILE >> openwrt/.config
+        
         # 3. 应用补丁 (common + specific)
         cd openwrt
-        [ -d "../devices/common/patches" ] && find ../devices/common/patches -name "*.patch" | sort | xargs -n 1 patch -p1 -i
-        [ -d "../devices/mediatek_filogic/patches" ] && find ../devices/mediatek_filogic/patches -name "*.patch" | sort | xargs -n 1 patch -p1 -i
+        if [ -d "../devices/common/patches" ]; then
+          find ../devices/common/patches -name "*.patch" -exec patch -p1 -i {} \;
+        fi
+        if [ -d "../devices/mediatek_filogic/patches" ]; then
+          find ../devices/mediatek_filogic/patches -name "*.patch" -exec patch -p1 -i {} \;
+        fi
+        
         # 4. 执行自定义脚本
         [ -f "../devices/common/$DIY_SH" ] && chmod +x ../devices/common/$DIY_SH && /bin/bash ../devices/common/$DIY_SH
 
