@@ -9,11 +9,7 @@
 name: Repo Dispatcher
 
 on: 
-  # push: 
-  #   branches:
-  #     - master
-  #schedule:
-  #  - cron: 30 18 * * *
+  repository_dispatch:
   workflow_dispatch:
     inputs:
       param:
